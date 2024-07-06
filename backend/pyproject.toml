@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "api"
+version = "0.1.0"
+description = "Rest API that watches for changes in Algorand accounts"
+authors = ["lempira <lempira@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.111.0"
+uvicorn = "^0.30.1"
+pydantic-settings = "^2.3.4"
+fastapi-utils = {extras = ["all"], version = "^0.7.0"}
+tortoise-orm = "^0.21.4"
+aerich = "^0.7.2"
+py-algorand-sdk = "^2.6.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.2"
+ruff = "^0.5.1"
+httpx = "^0.27.0"
+mypy = "^1.10.1"
+
+[tool.aerich]
+tortoise_orm = "api.db.TORTOISE_ORM"
+location = "./migrations"
+src_folder = "./."
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
