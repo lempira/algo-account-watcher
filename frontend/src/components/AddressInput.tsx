@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { WATCHED_ADDRESSES_QUERY_KEY } from "../constants";
+import { ADDRESS_ENDPOINT, WATCHED_ADDRESSES_QUERY_KEY } from "../constants";
 
 const AddressInput = () => {
   const [error, setError] = useState<Error | null>(null);
   const queryClient = useQueryClient();
   const mutateAddAddress = useMutation({
     mutationFn: async (address: string) => {
-      const response = await fetch("http://localhost:8000/addresses/add", {
+      const response = await fetch(`${ADDRESS_ENDPOINT}/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { FaWallet } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { WATCHED_ADDRESSES_QUERY_KEY } from "../constants";
+import { ADDRESS_ENDPOINT, WATCHED_ADDRESSES_QUERY_KEY } from "../constants";
 
 interface AccountBarProps {
   address: string;
@@ -12,7 +12,7 @@ const AccountBar = ({ address, amount }: AccountBarProps) => {
   const queryClient = useQueryClient();
   const mutateRemoveAddress = useMutation({
     mutationFn: async (address: string) => {
-      const response = await fetch("http://localhost:8000/addresses/delete", {
+      const response = await fetch(`${ADDRESS_ENDPOINT}/delete`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
