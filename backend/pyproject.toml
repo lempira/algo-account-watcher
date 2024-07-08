@@ -22,6 +22,18 @@ ruff = "^0.5.1"
 httpx = "^0.27.0"
 mypy = "^1.10.1"
 pytest-cov = "^5.0.0"
+pytest-mock = "^3.14.0"
+pytest-asyncio = "^0.23.7"
+
+[tool.ruff]
+line-length = 120
+lint.select = ["ALL"]
+lint.ignore = [
+  "G004", # logging-f-string 
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/test_*.py" = ["S101"] # too many args
 
 [tool.aerich]
 tortoise_orm = "api.db.TORTOISE_ORM"

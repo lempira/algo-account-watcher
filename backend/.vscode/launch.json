@@ -5,6 +5,14 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Debug Tests",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pytest",
+      "args": ["tests/routes_tests/test_address_endpoints.py"]
+      // "args": ["-k", "test_add_address_success"]
+    },
+    {
       "name": "Python Debugger: Algorand Account Watcher API",
       "type": "debugpy",
       "request": "launch",
