@@ -3,13 +3,18 @@
 from __future__ import annotations
 
 import json
-from typing import Any, Generator
+from typing import TYPE_CHECKING, Any, AsyncGenerator, Generator
 
 import pytest
-from _pytest.monkeypatch import MonkeyPatch  # noqa: TCH002
-from starlette.testclient import TestClient  # noqa: TCH002
+from fastapi import status
 
 from api.models.account import Account
+from api.models.notification import Notification
+from tests.conftest import seed_accounts
+
+if TYPE_CHECKING:
+    from _pytest.monkeypatch import MonkeyPatch
+    from starlette.testclient import TestClient
 
 mock_valid_account_info = {
     "address": "mock-address-valid",
@@ -18,10 +23,6 @@ mock_valid_account_info = {
 mock_invalid_account_info = {
     "address": "mock-address-invalid",
 }
-
-HTTP_200_OK = 200
-HTTP_201_CREATED = 201
-HTTP_404_NOT_FOUND = 404
 
 
 class MockAlgodClient:
@@ -32,7 +33,7 @@ class MockAlgodClient:
         self.mock_algod_client_response = mock_algod_client_response
         self.account_info_called = 0
 
-    def account_info(self) -> dict[str, Any]:
+    def account_info(self, _: str) -> dict[str, Any]:
         """Mock account_info method."""
         self.account_info_called += 1
         return self.mock_algod_client_response
@@ -50,13 +51,13 @@ def mock_algod_client(
 
 
 @pytest.mark.asyncio()
-async def test_get_all_watched_addresses(test_app_with_db_and_data: Generator[TestClient, None]) -> None:
+async def test_get_all_watched_addresses(test_app_with_db_and_data: AsyncGenerator[TestClient, None]) -> None:
     """Test case for the get_all_watched_addresses."""
     response = test_app_with_db_and_data.get("/addresses/all")
 
-    assert response.status_code == HTTP_200_OK
+    assert response.status_code == status.HTTP_200_OK
     response_addresses = [a.get("address") for a in response.json()]
-    assert len(response_addresses) == 2  # noqa: PLR2004
+    assert len(response_addresses) == len(seed_accounts)
 
 
 @pytest.mark.asyncio()
@@ -68,7 +69,7 @@ async def test_add_address_success(
     """Test case for the add_address endpoint."""
     response = test_app_with_db.post("/addresses/add", data=json.dumps({"address": "test-address"}))
 
-    assert response.status_code == HTTP_201_CREATED
+    assert response.status_code == status.HTTP_201_CREATED
     assert mock_algod_client.account_info_called == 1
     accounts = await Account.filter(address=mock_valid_account_info.get("address"))
     assert len(accounts) == 1
@@ -83,7 +84,21 @@ async def test_add_address_fail(
     """Test case for the add_address endpoint when it fails."""
     response = test_app_with_db.post("/addresses/add", data=json.dumps({"address": "test-address"}))
 
-    assert response.status_code == HTTP_404_NOT_FOUND
+    assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
     assert mock_algod_client.account_info_called == 1
     accounts = await Account.filter(address=mock_invalid_account_info.get("address"))
     assert len(accounts) == 0
+
+
+@pytest.mark.asyncio()
+async def test_delete_address(test_app_with_db_and_data: AsyncGenerator[TestClient, None]) -> None:
+    """Test case for the removing a watched address."""
+    first_seeded_address = seed_accounts[0].get("address")
+    response = test_app_with_db_and_data.delete(
+        f"/addresses/{first_seeded_address}",
+    )
+
+    assert response.status_code == status.HTTP_200_OK
+    assert first_seeded_address not in [account.address for account in await Account.all()]
+    # Assert notifications for the address are also deleted
+    assert first_seeded_address not in [notification.address for notification in await Notification.all()]

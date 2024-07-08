@@ -2,6 +2,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { FaWallet } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { ADDRESS_ENDPOINT, WATCHED_ADDRESSES_QUERY_KEY } from "../constants";
+import { useState } from "react";
+import { IoIosArrowForward } from "react-icons/io";
+import AccountHistory from "./AccountHistory";
+import { ComponentErrorSuspense } from "./ComponentErrorBoundary";
 
 interface AccountBarProps {
   address: string;
@@ -10,14 +14,15 @@ interface AccountBarProps {
 
 const AccountBar = ({ address, amount }: AccountBarProps) => {
   const queryClient = useQueryClient();
+  const [openDetails, setOpenDetails] = useState(false);
+
   const mutateRemoveAddress = useMutation({
     mutationFn: async (address: string) => {
-      const response = await fetch(`${ADDRESS_ENDPOINT}/delete`, {
+      const response = await fetch(`${ADDRESS_ENDPOINT}/${address}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ address }),
       });
 
       if (!response.ok) {
@@ -45,10 +50,22 @@ const AccountBar = ({ address, amount }: AccountBarProps) => {
   const calculatedAmount = Math.round(amount / 10000) / 100;
   return (
     <div key={address} className="collapse bg-base-200">
-      {/* <input type="checkbox" /> */}
+      <input type="checkbox" className="hidden" checked={openDetails} />
       <div className="flex flex-col p-2">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
+            <button
+              className="btn btn-link"
+              onClick={() => setOpenDetails(!openDetails)}
+            >
+              <IoIosArrowForward
+                className="h-[24px] w-[24px]"
+                style={{
+                  transition: "transform 0.15s linear",
+                  transform: `rotate(${openDetails ? 90 : 0}deg)`,
+                }}
+              />
+            </button>
             <FaWallet className="m-2" />
             <div className="collapse-title text-xl font-medium flex justify-between">
               {address}
@@ -67,7 +84,9 @@ const AccountBar = ({ address, amount }: AccountBarProps) => {
         <div className="ml-2">Current Balance: {calculatedAmount} ALGOs</div>
       </div>
       <div className="collapse-content">
-        <p>hello</p>
+        <ComponentErrorSuspense errorMsg="Failed to account history">
+          <AccountHistory address={address} enableQuery={openDetails} />
+        </ComponentErrorSuspense>
       </div>
     </div>
   );

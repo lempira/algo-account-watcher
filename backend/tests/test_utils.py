@@ -3,7 +3,6 @@
 from typing import Generator
 
 import pytest
-from _pytest.fixtures import MockerFixture
 from _pytest.monkeypatch import MonkeyPatch
 from pydantic import ValidationError
 
@@ -28,24 +27,28 @@ class MockLogger:
         self.info_messages = []
         self.error_messages = []
 
-    def info(self) -> None:
+    def info(self, log_message: str) -> None:
         """Logs an info message."""  # noqa: D401
-        self.info_messages.append("info message")
+        self.info_messages.append(log_message)
 
-    def error(self) -> None:
+    def error(self, log_message: str) -> None:
         """Logs an error message."""  # noqa: D401
-        self.error_messages.append("error message")
+        self.error_messages.append(log_message)
+
+    def exception(self, log_message: str) -> None:
+        """Logs an exception."""  # noqa: D401
+        self.error_messages.append(log_message)
 
 
 @pytest.fixture()
-def mock_logger(monkeypatch: Generator[MonkeyPatch]) -> MockLogger:
+def mock_logger(monkeypatch: Generator[MonkeyPatch, None, None]) -> MockLogger:
     """Mock logger fixture for testing."""
     logger = MockLogger()
-    monkeypatch.setattr("api.utils.algo_client", logger)
+    monkeypatch.setattr("api.utils.log", logger)
     return logger
 
 
-def test_get_account_info_success(mocker: Generator[MockerFixture]) -> None:
+def test_get_account_info_success(mocker: Generator[None, None, None]) -> None:
     """Test case for the get_account_info function when it succeeds."""
     mocker.patch.object(algod_client, "account_info", return_value=valid_account_info)
 
@@ -57,7 +60,7 @@ def test_get_account_info_success(mocker: Generator[MockerFixture]) -> None:
     algod_client.account_info.assert_called_once_with(valid_address)
 
 
-def test_get_account_info_fail(mock_logger: MockLogger, mocker: Generator[MockerFixture]) -> None:
+def test_get_account_info_fail(mock_logger: MockLogger, mocker: Generator[None, None, None]) -> None:
     """Test case for the get_account_info function when it fails."""
     mocker.patch.object(algod_client, "account_info", return_value=invalid_account_info)
 

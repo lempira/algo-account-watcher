@@ -13,6 +13,11 @@ const getProxy = ({
       changeOrigin: true,
       rewrite: (path) => path.replace(/^\/addresses/, ""),
     },
+    "/notifications": {
+      target: `${VITE_API_URL}/notifications`,
+      changeOrigin: true,
+      rewrite: (path) => path.replace(/^\/notifications/, ""),
+    },
   };
 };
 

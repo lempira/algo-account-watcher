@@ -2,13 +2,17 @@
 
 from __future__ import annotations
 
-from typing import Any
+from typing import TYPE_CHECKING
 
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, ValidationError
 
 from api.models.account import Account, Account_Pydantic
+from api.models.notification import Notification
 from api.utils import get_account_info
+
+if TYPE_CHECKING:
+    from tortoise.contrib.pydantic import PydanticModel
 
 router = APIRouter()
 
@@ -33,7 +37,7 @@ class StatusResponse(BaseModel):
     status_code=200,
     description="Get all Algorand addresses being watched",
 )
-async def get_all_watched_addresses() -> list[Any]:
+async def get_all_watched_addresses() -> list[PydanticModel]:
     """Get all Algorand addresses being watched."""
     return await Account_Pydantic.from_queryset(Account.all())
 
@@ -44,7 +48,7 @@ async def get_all_watched_addresses() -> list[Any]:
     status_code=201,
     description="Add a new Algorand address to be watched.",
 )
-async def add_address(address: AddressInput) -> Any:  # noqa: ANN401
+async def add_address(address: AddressInput) -> PydanticModel:
     """Add a new Algorand address to be watched."""
     try:
         account_info = get_account_info(address.address)
@@ -62,10 +66,12 @@ async def add_address(address: AddressInput) -> Any:  # noqa: ANN401
     return await Account.create(**account_info.model_dump())
 
 
-@router.delete("/delete", response_model=StatusResponse)
-async def delete_address(address: AddressInput) -> StatusResponse:
+@router.delete("/{address}", response_model=StatusResponse)
+async def delete_address(address: str) -> StatusResponse:
     """Delete an Algorand address from the watched list."""
-    deleted_count = await Account.filter(address=address.address).delete()
+    deleted_count = await Account.filter(address=address).delete()
     if not deleted_count:
-        raise HTTPException(status_code=404, detail=f"Address {address.address} not found")
-    return StatusResponse(message=f"Deleted address {address.address} from watched list")
+        raise HTTPException(status_code=404, detail=f"Address {address} not found")
+    # Also delete notifications for the address
+    await Notification.filter(address=address).delete()
+    return StatusResponse(message=f"Deleted address {address} from watched list")

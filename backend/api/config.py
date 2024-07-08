@@ -1,6 +1,10 @@
 """Configuration settings for the API."""
 
+from __future__ import annotations
+
+import json
 import logging
+import os
 from functools import lru_cache
 
 from pydantic_settings import BaseSettings
@@ -13,11 +17,14 @@ class Settings(BaseSettings):
 
     environment: str = "dev"
     testing: bool = bool(0)
-    database_url: str = "sqlite://data/db.sqlite3"
+    allowable_origins: list[str] = ["*"]
+    database_url: str = "sqlite://:memory:"
 
 
 @lru_cache
 def get_settings() -> BaseSettings:
     """Get the configuration settings."""
     log.info("Loading config settings from the environment...")
-    return Settings()
+    database_url = os.getenv("DATABASE_URL")
+    allowable_origins = json.loads(os.getenv("ALLOWABLE_ORIGINS"))
+    return Settings(database_url=database_url, allowable_origins=allowable_origins)

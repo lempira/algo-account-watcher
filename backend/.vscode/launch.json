@@ -9,8 +9,8 @@
       "type": "debugpy",
       "request": "launch",
       "module": "pytest",
-      "args": ["tests/routes_tests/test_address_endpoints.py"]
-      // "args": ["-k", "test_add_address_success"]
+      // "args": ["tests/routes_tests/test_address_endpoints.py"]
+      // "args": ["-k", "test_get_all_notifications_by_address"]
     },
     {
       "name": "Python Debugger: Algorand Account Watcher API",

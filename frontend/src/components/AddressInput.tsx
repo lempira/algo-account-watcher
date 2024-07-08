@@ -48,7 +48,7 @@ const AddressInput = () => {
   };
 
   return (
-    <div className="w-3/4 flex flex-col gap-2 self-center">
+    <div className="w-full flex flex-col gap-2 self-center p-4">
       <form onSubmit={handleSubmit} className="flex gap-2 justify-center">
         <div className="w-full flex gap-2">
           <input
