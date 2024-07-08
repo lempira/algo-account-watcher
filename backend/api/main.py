@@ -2,7 +2,7 @@
 
 import logging
 from contextlib import asynccontextmanager
-from typing import Any, AsyncGenerator
+from typing import AsyncGenerator
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -21,7 +21,7 @@ origins = [
 
 
 @asynccontextmanager
-async def lifespan() -> AsyncGenerator[Any, Any]:
+async def lifespan(app: FastAPI) -> AsyncGenerator:  # noqa: ARG001
     """Context manager for the application lifecycle."""
     log.info("Creating a new application lifecycle context...")
     await check_watched_accounts_state()

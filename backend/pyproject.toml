@@ -15,6 +15,7 @@ fastapi-utils = {extras = ["all"], version = "^0.7.0"}
 tortoise-orm = "^0.21.4"
 aerich = "^0.7.2"
 py-algorand-sdk = "^2.6.1"
+gunicorn = "^22.0.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.2.2"
@@ -24,6 +25,7 @@ mypy = "^1.10.1"
 pytest-cov = "^5.0.0"
 pytest-mock = "^3.14.0"
 pytest-asyncio = "^0.23.7"
+pre-commit = "^3.7.1"
 
 [tool.ruff]
 line-length = 120

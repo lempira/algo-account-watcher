@@ -1,6 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { IoIosRefresh } from "react-icons/io";
-import { WATCHED_ADDRESSES_QUERY_KEY } from "./constants";
+import { WATCHED_ADDRESSES_QUERY_KEY } from "../constants";
 
 const RefreshAddresses = () => {
   const queryClient = useQueryClient();

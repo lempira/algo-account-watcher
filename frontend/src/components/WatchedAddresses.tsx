@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { Account } from "./types";
-import { WATCHED_ADDRESSES_QUERY_KEY } from "./constants";
+import { Account } from "../types";
+import { WATCHED_ADDRESSES_QUERY_KEY } from "../constants";
 import AccountBar from "./AccountBar";
 
 const WatchedAddresses = () => {

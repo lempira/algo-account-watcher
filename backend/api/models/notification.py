@@ -1,4 +1,4 @@
-"""Models for the Notification object."""
+"""Model for the Notification object."""
 
 from tortoise import fields, models
 

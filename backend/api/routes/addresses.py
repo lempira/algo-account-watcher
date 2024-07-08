@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+from typing import Any
+
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel, PydanticModel, ValidationError
+from pydantic import BaseModel, ValidationError
 
 from api.models.account import Account, Account_Pydantic
 from api.utils import get_account_info
@@ -31,7 +33,7 @@ class StatusResponse(BaseModel):
     status_code=200,
     description="Get all Algorand addresses being watched",
 )
-async def get_all_watched_addresses() -> list[PydanticModel]:
+async def get_all_watched_addresses() -> list[Any]:
     """Get all Algorand addresses being watched."""
     return await Account_Pydantic.from_queryset(Account.all())
 
@@ -42,7 +44,7 @@ async def get_all_watched_addresses() -> list[PydanticModel]:
     status_code=201,
     description="Add a new Algorand address to be watched.",
 )
-async def add_address(address: AddressInput) -> PydanticModel:
+async def add_address(address: AddressInput) -> Any:  # noqa: ANN401
     """Add a new Algorand address to be watched."""
     try:
         account_info = get_account_info(address.address)

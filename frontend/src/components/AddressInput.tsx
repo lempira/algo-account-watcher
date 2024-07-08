@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { WATCHED_ADDRESSES_QUERY_KEY } from "./constants";
+import { WATCHED_ADDRESSES_QUERY_KEY } from "../constants";
 
 const AddressInput = () => {
   const [error, setError] = useState<Error | null>(null);

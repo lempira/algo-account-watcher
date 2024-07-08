@@ -1,9 +1,9 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import AddressInput from "./AddressInput";
-import Navbar from "./Navbar";
-import WatchedAddresses from "./WatchedAddresses";
+import AddressInput from "./components/AddressInput";
+import Navbar from "./components/Navbar";
+import WatchedAddresses from "./components/WatchedAddresses";
 import { Suspense } from "react";
-import RefreshAddresses from "./RefreshAddresses";
+import RefreshAddresses from "./components/RefreshAddresses";
 const queryClient = new QueryClient();
 
 function App() {

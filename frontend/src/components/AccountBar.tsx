@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { FaWallet } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { WATCHED_ADDRESSES_QUERY_KEY } from "./constants";
+import { WATCHED_ADDRESSES_QUERY_KEY } from "../constants";
 
 interface AccountBarProps {
   address: string;
