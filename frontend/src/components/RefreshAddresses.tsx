@@ -25,16 +25,18 @@ const RefreshAddresses = () => {
 
   return (
     <div className="flex items-center gap-2">
-      <p className="text-2xl">Watched Addresses</p>
+      <p className="lg:text-2xl ml-4">Watched Addresses</p>
       <button
-        className="btn btn-ghost tooltip tooltip-right"
+        className="btn btn-ghost lg:tooltip tooltip-right"
         data-tip="Refresh Watched Addresses"
         aria-label="Refresh Watched Addresses"
         onClick={refreshAddresses}
       >
-        <IoIosRefresh className="h-[24px] w-[24px]" />
+        <IoIosRefresh className="h-[20px] w-[20px] lg:h-[24px] lg:w-[24px]" />
       </button>
-      {showText && <p className="text-accent">Updated Available</p>}
+      {showText && (
+        <p className="text-accent text-sm lg:text-base">Updated Available</p>
+      )}
     </div>
   );
 };

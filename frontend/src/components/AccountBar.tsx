@@ -50,7 +50,7 @@ const AccountBar = ({ address, amount }: AccountBarProps) => {
 
   const calculatedAmount = Math.round(amount / 10000) / 100;
   return (
-    <div key={address} className="collapse bg-base-200">
+    <div key={address} className="collapse bg-base-200 overflow-x-auto">
       <input
         type="checkbox"
         className="hidden"
@@ -61,7 +61,7 @@ const AccountBar = ({ address, amount }: AccountBarProps) => {
         <div className="flex justify-between items-center">
           <div className="flex items-center">
             <button
-              className="btn btn-link tooltip tooltip-right"
+              className="btn btn-link lg:tooltip tooltip-right"
               data-tip="Show Account History"
               onClick={() => setOpenDetails(!openDetails)}
               aria-label="Show Account History"
@@ -75,7 +75,7 @@ const AccountBar = ({ address, amount }: AccountBarProps) => {
               />
             </button>
             <FaWallet className="m-2" />
-            <div className="collapse-title text-xl font-medium flex justify-between">
+            <div className="collapse-title lg:text-xl font-medium flex justify-between">
               {address}
             </div>
           </div>

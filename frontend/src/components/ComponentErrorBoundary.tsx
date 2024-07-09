@@ -19,7 +19,9 @@ export const ComponentErrorSuspense = ({
       )}
     >
       <Suspense
-        fallback={<span className="loading loading-dots loading-lg"></span>}
+        fallback={
+          <span className="ml-6 loading loading-dots loading-lg"></span>
+        }
       >
         {children}
       </Suspense>

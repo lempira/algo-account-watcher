@@ -9,7 +9,7 @@ const Container = () => {
   const asdf = testFn();
   console.log({ asdf, testFn });
   return (
-    <div className="container mx-auto flex flex-col align-middle p-4">
+    <div className="container mx-auto flex flex-col align-middle lg:p-4">
       <Navbar />
       <HelpText />
       <AddressInput />
