@@ -4,6 +4,8 @@ The directory contains the REST API backend for the application.
 
 ## Tech Used
 
+The tech stack for the backend is shown below. I went with the embedded SQL Lite database mostly to demonstrate the functionality of the app. In real, scalable production, this will probably be swapped with some managed RDS or doc database. The app would still function the same way as long as the Tortoise ORM has an adapter for that DB.
+
 | Lib or package |             Used for              |
 | :------------- | :-------------------------------: |
 | Poetry         |      Python package manager       |
