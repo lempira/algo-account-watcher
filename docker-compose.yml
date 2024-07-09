@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ./src/deploy/Dockerfile.dev
+    image: algo-app-dev
+    container_name: algo-app-dev
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_APP_URL=0.0.0.0
+      - VITE_API_URL=http://backend:80
+      - VITE_DOCKER=true
+
+  backend:
+    build:
+        context: ./backend
+    image: algo-api-dev
+    container_name: algo-api-dev
+    environment:
+      - DATABASE_URL=sqlite://data/dev-db.sqlite3
+      - ALLOWABLE_ORIGINS=["*"]
+    ports:
+      - "8000:80"

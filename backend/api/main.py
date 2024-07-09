@@ -14,7 +14,7 @@ from api.tasks import check_watched_accounts_state
 
 log = logging.getLogger("uvicorn")
 settings = get_settings()
-temp=1
+temp = 1
 origins = settings.allowable_origins
 
 
@@ -37,7 +37,12 @@ async def lifespan(_: FastAPI) -> AsyncGenerator:
 
 def create_application() -> FastAPI:
     """Create the FastAPI application."""
-    application = FastAPI(lifespan=lifespan, swagger_ui_parameters={"syntaxHighlight.theme": "obsidian"})
+    application = FastAPI(
+        title="Algorand Account Watcher API",
+        description="API for watching Algorand accounts and sending notifications on changes.",
+        lifespan=lifespan,
+        swagger_ui_parameters={"syntaxHighlight.theme": "obsidian"},
+    )
     application.include_router(addresses.router, prefix="/addresses", tags=["addresses"])
     application.include_router(notifications.router, prefix="/notifications", tags=["notifications"])
 

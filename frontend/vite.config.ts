@@ -7,10 +7,15 @@ import getProxy from "./src/scripts/setupProxy";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
-  const { VITE_API_URL = "", VITE_APP_URL = "" } = process.env;
+  const { VITE_API_URL = "", VITE_APP_URL = "", VITE_DOCKER="false" } = process.env;
+
+  const useDocker = VITE_DOCKER.toLowerCase() === "true";
+
 
   return {
-    plugins: [react(), tsconfigPaths(), mkcert()],
+    plugins: [react(), tsconfigPaths(), 
+      ...(useDocker ? [] : [mkcert()]), 
+    ],
     server: {
       host: VITE_APP_URL,
       proxy: getProxy({ VITE_API_URL }),

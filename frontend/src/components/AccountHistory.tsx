@@ -16,7 +16,7 @@ const getAccountHistory = async (
 };
 
 const AccountHistory = ({ address, enableQuery }: AccountHistoryProps) => {
-  const { data = [], error } = useSuspenseQuery({
+  const { data = [] } = useSuspenseQuery({
     queryKey: [...ACCOUNT_HISTORY_QUERY_KEY, address, enableQuery],
     queryFn: () => (enableQuery ? getAccountHistory(address) : null),
   });

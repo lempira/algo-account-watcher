@@ -55,7 +55,8 @@ const AccountBar = ({ address, amount }: AccountBarProps) => {
         <div className="flex justify-between items-center">
           <div className="flex items-center">
             <button
-              className="btn btn-link"
+              className="btn btn-link tooltip tooltip-right"
+              data-tip="Show Account History"
               onClick={() => setOpenDetails(!openDetails)}
             >
               <IoIosArrowForward
