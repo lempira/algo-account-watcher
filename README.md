@@ -10,12 +10,14 @@ The API documentation is provided via Swagger Open API, making it easy to explor
 
 
 [View API Docs](https://algo-api-qjbijoctfa-uc.a.run.app/docs#/).
+
 ![image](https://storage.googleapis.com/algorand-account-watcher/algorand-account-watcher-api.png)
 
 ### Web Application
 The web application interacts with the API to manage and see the accounts you are watching.
 
 [Go To Web App](https://algo-app-qjbijoctfa-uc.a.run.app/).
+
 ![image](https://storage.googleapis.com/algorand-account-watcher/algorand-account-watcher-app.png)
 
 
@@ -59,7 +61,7 @@ docker compose down
 ```
 
 ## Developing the application
-See the READMEs of the individual backend and frontend folders for information on how to set up the applications for development individually and together.
+See the READMEs of the individual backend and frontend folders for information on how to set up the applications for development individually and together. VsCode was used to develop the application and workspaces where used to keep the configurations specific to the frontend and backend applications
 
 
 

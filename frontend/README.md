@@ -1,30 +1,55 @@
-# React + TypeScript + Vite
+# Algorand Account Watcher Frontend Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The directory contains the web application frontend
 
-Currently, two official plugins are available:
+## Tech Used
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+| Lib or package    | Used for |
+| :---------------- | :------: |
+| Typescript        |   Language and typing   |
+| Vite        |   Frontend Tooling   |
+| React           |   Framework   |
+| Tailwind    |  CSS Styling   |
+| React Query |  State Management   |
+| Jest |  Test   |
+| ESLint |  Linting   |
+| Prettier |  Formatting   |
+| Docker |  Container Making   |
+| GCP Cloud Run |  Deployment   |
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Local Development
+The entry point for development is the package.json scrips. You start the development server with the following command
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```
+npm run dev
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Environmental Variables
+
+```
+# The local URL that points to the API.
+VITE_API_URL=http://localhost:8000
+
+# The URL that you want the app to run from. This can be localhost or something more specific as shown below
+# If you choose to have something more specific, you will need to change your /etc/hosts file to map this to localhost
+VITE_APP_URL=localhost.lempira.info
+
+# Set only when running within a docker container in dev. (Used for docker compose)
+VITE_DOCKER=false
+```
+
+## Running Tests
+
+```
+npm run test
+```
+
+## Deploy
+There are many ways to deploy this application. The include DockerFile creates a repeatable environment image that can be pushed to you cloud platform of choice. I choose to deploy this to Google Cloud [Cloud Run](https://cloud.google.com/run/docs/deploying)
+
+Create the Docker Image by running the following command from `frontend` folder.
+
+```
+docker build --file=src/deploy/Dockerfile.prod -t <your-tag> .
+```

@@ -26,5 +26,5 @@ def get_settings() -> BaseSettings:
     """Get the configuration settings."""
     log.info("Loading config settings from the environment...")
     database_url = os.getenv("DATABASE_URL")
-    allowable_origins = json.loads(os.getenv("ALLOWABLE_ORIGINS"))
-    return Settings(database_url=database_url, allowable_origins=allowable_origins)
+    allowable_origins = os.getenv("ALLOWABLE_ORIGINS", '["*"]')
+    return Settings(database_url=database_url, allowable_origins=json.loads(allowable_origins))
