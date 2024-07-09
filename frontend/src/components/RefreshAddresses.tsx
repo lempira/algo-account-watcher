@@ -29,11 +29,10 @@ const RefreshAddresses = () => {
       <button
         className="btn btn-ghost tooltip tooltip-right"
         data-tip="Refresh Watched Addresses"
+        aria-label="Refresh Watched Addresses"
+        onClick={refreshAddresses}
       >
-        <IoIosRefresh
-          onClick={refreshAddresses}
-          className="h-[24px] w-[24px]"
-        />
+        <IoIosRefresh className="h-[24px] w-[24px]" />
       </button>
       {showText && <p className="text-accent">Updated Available</p>}
     </div>

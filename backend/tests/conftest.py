@@ -35,7 +35,7 @@ def get_settings_override() -> Settings:
         Settings: The overridden settings.
 
     """
-    return Settings(testing=1, environment="dev")
+    return Settings(testing=1, environment="dev", database_url="sqlite://:memory:")
 
 
 @pytest.fixture()

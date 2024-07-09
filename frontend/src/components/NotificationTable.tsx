@@ -38,7 +38,7 @@ const NotificationTable = ({ data }: NotificationTableProps) => {
         cell: (info) => info.getValue(),
       },
     ],
-    []
+    [],
   );
 
   const table = useReactTable({
@@ -69,14 +69,14 @@ const NotificationTable = ({ data }: NotificationTableProps) => {
                           ? header.column.getNextSortingOrder() === "asc"
                             ? "Sort ascending"
                             : header.column.getNextSortingOrder() === "desc"
-                            ? "Sort descending"
-                            : "Clear sort"
+                              ? "Sort descending"
+                              : "Clear sort"
                           : undefined
                       }
                     >
                       {flexRender(
                         header.column.columnDef.header,
-                        header.getContext()
+                        header.getContext(),
                       )}
                       {{
                         asc: " 🔼",
@@ -102,7 +102,7 @@ const NotificationTable = ({ data }: NotificationTableProps) => {
                     <td key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </td>
                   );

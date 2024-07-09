@@ -30,7 +30,6 @@ const AddressInput = () => {
     const formData = new FormData(form);
     const address = formData.get("address") as string;
 
-    console.log({ formData, address });
     setError(null);
     mutateAddAddress.mutate(address, {
       onSuccess: () => {
@@ -40,7 +39,6 @@ const AddressInput = () => {
         });
       },
       onError: (error) => {
-        console.log({ error });
         setError(error);
         form.reset();
       },

@@ -42,6 +42,7 @@ const AccountBar = ({ address, amount }: AccountBarProps) => {
         });
       },
       onError: (error) => {
+        // TODO: Handle error in UI
         console.log({ error });
       },
     });
@@ -50,7 +51,12 @@ const AccountBar = ({ address, amount }: AccountBarProps) => {
   const calculatedAmount = Math.round(amount / 10000) / 100;
   return (
     <div key={address} className="collapse bg-base-200">
-      <input type="checkbox" className="hidden" checked={openDetails} />
+      <input
+        type="checkbox"
+        className="hidden"
+        checked={openDetails}
+        onChange={() => null}
+      />
       <div className="flex flex-col p-2">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
@@ -58,6 +64,7 @@ const AccountBar = ({ address, amount }: AccountBarProps) => {
               className="btn btn-link tooltip tooltip-right"
               data-tip="Show Account History"
               onClick={() => setOpenDetails(!openDetails)}
+              aria-label="Show Account History"
             >
               <IoIosArrowForward
                 className="h-[24px] w-[24px]"
@@ -75,6 +82,7 @@ const AccountBar = ({ address, amount }: AccountBarProps) => {
           <button
             className="tooltip tooltip-left"
             data-tip="Stop Watching Address"
+            aria-label="Stop Watching Address"
           >
             <MdDelete
               onClick={handleRemove}

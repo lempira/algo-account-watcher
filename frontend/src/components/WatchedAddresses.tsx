@@ -1,18 +1,15 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { Account } from "../types";
-import { ADDRESS_ENDPOINT, WATCHED_ADDRESSES_QUERY_KEY } from "../constants";
+import { WATCHED_ADDRESSES_QUERY_KEY } from "../constants";
 import AccountBar from "./AccountBar";
 import RefreshAddresses from "./RefreshAddresses";
+import { getWatchedAddresses } from "./api";
 
 const WatchedAddresses = () => {
   const { data = [], error } = useSuspenseQuery({
     queryKey: WATCHED_ADDRESSES_QUERY_KEY,
-    queryFn: async (): Promise<Account[]> => {
-      const response = await fetch(`${ADDRESS_ENDPOINT}/all`);
-      return response.json();
-    },
+    queryFn: getWatchedAddresses,
   });
-  console.log({ data });
+
   return (
     <>
       {data.length > 0 ? (

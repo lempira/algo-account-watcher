@@ -22,4 +22,5 @@ class Notification(models.Model):
         """Return the string representation of the notification."""
         return self.address
 
+
 Notification_Pydantic = pydantic_model_creator(Notification, name="Notification")

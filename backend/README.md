@@ -4,21 +4,21 @@ The directory contains the REST API backend for the application.
 
 ## Tech Used
 
-| Lib or package    | Used for |
-| :---------------- | :------: |
-| Poetry        |   Python package manager   |
-| Fast API        |   Rest API Framework   |
-| SqlLite           |   Database   |
-| Tortoise ORM    |  ORM to interact with the database   |
-| PyTest |  Testing Framework   |
-| Ruff |  Linting   |
-| Ruff |  Formatting   |
-| Docker |  Container Making   |
-| GCP Cloud Run |  Deployment   |
+| Lib or package |             Used for              |
+| :------------- | :-------------------------------: |
+| Poetry         |      Python package manager       |
+| Fast API       |        Rest API Framework         |
+| SqlLite        |             Database              |
+| Tortoise ORM   | ORM to interact with the database |
+| PyTest         |         Testing Framework         |
+| Ruff           |              Linting              |
+| Ruff           |            Formatting             |
+| Docker         |         Container Making          |
+| GCP Cloud Run  |            Deployment             |
 
 ## Local Development
 
-VsCode was used as the IDE for this development so there are running and debugging tools that are specific to VsCode. The easiest way to develop the API to run Fast API in debug mode using the provided launch configurations shown below. You first have to [open the backend folder in workspace](https://code.visualstudio.com/docs/editor/workspaces#_how-do-i-open-a-vs-code-workspace). You can open the debug extension in vscode (Click [here](https://code.visualstudio.com/docs/python/debugging) for instructions on how to set that up) or press F5. Make sure you are running the "Python Debugger: Algorand Account Watcher API" target. The "Debug Tests" target is for debugging tests. 
+VsCode was used as the IDE for this development so there are running and debugging tools that are specific to VsCode. The easiest way to develop the API to run Fast API in debug mode using the provided launch configurations shown below. You first have to [open the backend folder in workspace](https://code.visualstudio.com/docs/editor/workspaces#_how-do-i-open-a-vs-code-workspace). You can open the debug extension in vscode (Click [here](https://code.visualstudio.com/docs/python/debugging) for instructions on how to set that up) or press F5. Make sure you are running the "Python Debugger: Algorand Account Watcher API" target. The "Debug Tests" target is for debugging tests.
 
 ```
 {
@@ -42,9 +42,21 @@ VsCode was used as the IDE for this development so there are running and debuggi
 }
 ```
 
+## Linting and Formatting
+
+The backend uses [ruff](https://github.com/astral-sh/ruff) for both linting and formatting. You can run the following command to lint and format the entire codebase. In additionl you should install the [ruff vscode extension](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff) so you can lint and format while working on each file.
+
+```
+ruff check # lint
+```
+
+```
+ruff format
+```
+
 ## Running Tests
 
-PyTest was used as the Python testing framework.  Before running test make sure you are in the correct poetry virtual environment. Activate the virtualenv by running `poetry shell` You can run test by running the following command in the `backend` folder
+PyTest was used as the Python testing framework. Before running test make sure you are in the correct poetry virtual environment. Activate the virtualenv by running `poetry shell` You can run test by running the following command in the `backend` folder
 
 ```
 python -m pytest
@@ -83,4 +95,3 @@ Navigate to the backend directory `algo-account-wathcher/backend` and build the 
 ```
 docker build -t <your-api-tag> .
 ```
-
