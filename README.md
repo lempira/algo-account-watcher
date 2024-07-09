@@ -80,4 +80,6 @@ Due to time constraints, these are some of the functionality that I didn't get t
 - Use websockets for communciations with the backend - Currently, the web application relies on polling to get the current state. Web sockets would allow me to remove the refresh button by having the server push the notifications to the client.
 - Break up the frontend and backend into separate repos - I put the repos for demonstration purposes only. Breaking up the repos would decouple the repods and make maintenance much easier.
 
-![image](https://i.giphy.com/media/73oW01Plu9O5HAOdEH/giphy.gif)
+Let's goooo!
+
+![image](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExaTQzcjBqYzZhZzJscWh5bXN3ZjlqZXQzMHR4YWx5M2V1NDRod3k5YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/yoJC2GnSClbPOkV0eA/giphy.gif)
