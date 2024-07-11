@@ -18,10 +18,10 @@ describe("RefreshAddresses Component", () => {
   test("should render correctly", () => {
     expect(screen.getByText(/Watched Addresses/i)).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /Refresh Watched Addresses/i }),
+      screen.getByRole("button", { name: /Refresh Watched Addresses/i })
     ).toBeInTheDocument();
     expect(
-      screen.queryByText(new RegExp("Updated Available", "i")),
+      screen.queryByText(new RegExp("Updated Available", "i"))
     ).not.toBeInTheDocument();
   });
 
@@ -33,11 +33,11 @@ describe("RefreshAddresses Component", () => {
     await user.hover(refreshButton);
     expect(refreshButton).toHaveAttribute(
       "data-tip",
-      "Refresh Watched Addresses",
+      "Refresh Watched Addresses"
     );
   });
 
-  test('should show "Updated Available" text after 60 seconds of clicking refresh icon', async () => {
+  test('should show "Update Available" text after 60 seconds of clicking refresh icon', async () => {
     vi.useFakeTimers({
       shouldAdvanceTime: true,
     });
@@ -52,7 +52,7 @@ describe("RefreshAddresses Component", () => {
     // Fast-forward 65 seconds
     vi.advanceTimersByTime(65000);
 
-    expect(await screen.findByText(/Updated Available/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Update Available/i)).toBeInTheDocument();
 
     vi.useRealTimers();
   });

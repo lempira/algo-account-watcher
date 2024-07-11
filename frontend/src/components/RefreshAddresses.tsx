@@ -35,7 +35,7 @@ const RefreshAddresses = () => {
         <IoIosRefresh className="h-[20px] w-[20px] lg:h-[24px] lg:w-[24px]" />
       </button>
       {showText && (
-        <p className="text-accent text-sm lg:text-base">Updated Available</p>
+        <p className="text-accent text-sm lg:text-base">Update Available</p>
       )}
     </div>
   );
